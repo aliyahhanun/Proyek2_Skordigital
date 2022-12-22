@@ -3,25 +3,25 @@ services:
   app:
     build:
       args:
-        user: ian
+        user: skordigital
         uid: 1000
       context: ./
       dockerfile: Dockerfile
-    image: gallery
-    container_name: gallery-app
+    image: skordigital
+    container_name: skordigital-app
     restart: unless-stopped
     working_dir: /var/www/
     volumes:
       - ./:/var/www
     networks:
-      - gallery
+      - skordigital
 
   db:
     image: mysql:8.0
     container_name: gallery-db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: gallery
+      MYSQL_DATABASE: skordigital
       MYSQL_ROOT_PASSWORD:
       MYSQL_PASSWORD:
       MYSQL_USER: root
@@ -30,11 +30,11 @@ services:
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
     networks:
-      - gallery
+      - skordigital
 
   nginx:
     image: nginx:alpine
-    container_name: gallery-nginx
+    container_name: skordigital-nginx
     restart: unless-stopped
     ports:
       - 8000:80
@@ -42,8 +42,8 @@ services:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
-      - gallery
+      - skordigital
 
 networks:
-  gallery:
+  skordigital:
     driver: bridge
