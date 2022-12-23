@@ -3,7 +3,7 @@ services:
   app:
     build:
       args:
-        user: skordigital
+        user: '1012'
         uid: 1000
       context: ./
       dockerfile: Dockerfile
@@ -18,7 +18,7 @@ services:
 
   db:
     image: mysql:8.0
-    container_name: gallery-db
+    container_name: skordigital-db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: skordigital
@@ -40,7 +40,7 @@ services:
       - 8000:80
     volumes:
       - ./:/var/www
-      - ./docker-compose/nginx:/etc/nginx/conf.d/
+      - ./docker/nginx:/etc/nginx/conf.d/
     networks:
       - skordigital
 
